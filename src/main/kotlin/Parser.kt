@@ -4,6 +4,7 @@ import org.jsoup.select.Elements
 
 class Parser {
     private val url = "http://timetable.sutr.ru/groups"
+    private val result: MutableList<String> = mutableListOf()
 
     fun main(){
         println(parseListGroups())
@@ -12,6 +13,7 @@ class Parser {
     fun parseListGroups(){
         val document : Document = Jsoup.connect(url).get()
         val element : Elements = document.select("ul[group-list tile shadow]")
+        println(document)
 
         for (i in 0 until element.size){
             val groupId : String = BASE_URL +
@@ -25,8 +27,9 @@ class Parser {
                 .select("a")
                 .eq(i)
                 .toString()
+
+            println(groupId)
         }
-        
     }
 
     fun parseTimetable(groupId : String){
